@@ -98,6 +98,20 @@ const queryProduct = async ({query, limit, skip}) => {
     .exec()
 }
 
+// ------------- GET PRODUCT WITH DISCOUNT MODEL ------------- 
+const getDiscountProduct = async ({filter, limit = 50, sort = 'ctime', page, select = []}) => {
+    const skip = (page - 1) * limit
+    const sortBy = sort === 'ctime' ? {_id: -1} : {_id : 1}
+
+    return product.find(filter)
+        .sort(sortBy)
+        .skip(skip)
+        .limit(limit)
+        .select(getSelectData(select))
+        .lean()
+        .exec()
+}
+
 module.exports = {
     findAllDraftProduct,
     findAllPublictProduct,
@@ -106,5 +120,6 @@ module.exports = {
     searchProduct,
     findAllProductUser,
     findProductUser,
-    findUpdateProduct
+    findUpdateProduct,
+    getDiscountProduct
 }
