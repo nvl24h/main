@@ -87,6 +87,7 @@ class Product {
     }
 
     async createProduct(productId) {
+        console.log(this, '-----------');
         return await product.create({...this, _id: productId})
     }
 

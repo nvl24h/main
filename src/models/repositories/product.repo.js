@@ -102,6 +102,7 @@ const queryProduct = async ({query, limit, skip}) => {
 const getDiscountProduct = async ({filter, limit = 50, sort = 'ctime', page, select = []}) => {
     const skip = (page - 1) * limit
     const sortBy = sort === 'ctime' ? {_id: -1} : {_id : 1}
+    console.log(filter, '---------');
 
     return product.find(filter)
         .sort(sortBy)

@@ -10,6 +10,7 @@ class DiscountService {
 
     //------------- CREATE DISCOUNT -------------
     static createDiscount = async (payload) => {
+        
         const {name, description, type, code, value, max_value, start_date, end_date, is_active,
             max_uses, uses_count, users_used, max_uses_per_user, min_order_value, shopId, applies_to, product_ids
         } = payload
@@ -49,7 +50,8 @@ class DiscountService {
             discount_min_order_value: min_order_value,
             discount_applies_to: applies_to,
             discount_product_ids: applies_to === 'all' ? [] : product_ids,
-            discount_is_active: is_active
+            discount_is_active: is_active,
+            disocunt_shopId: shopId
         })
     }
 
@@ -59,9 +61,9 @@ class DiscountService {
     }
 
     //------------- GET ALL DISCOUNT WITH PRODUCT -------------
-    static async getAllDiscountWithProduct({code, shopId, userId, limit, page}) {
+    static async getAllDiscountWithProduct({codeId, shopId, limit, page}) {
         const foundDiscount = await discountModel.findOne({
-            discount_code: code,
+            discount_code: codeId,
             disocunt_shopId: converObjectMongoId(shopId)
         }).lean()
 
@@ -130,7 +132,8 @@ class DiscountService {
             discount_max_value,
             discount_max_uses_per_user,
             disocunt_type,
-            discount_value
+            discount_value,
+            discount_users_used
         } = foundDiscount
 
         if(!discount_is_active) throw new BadRequestError('discount not expried')
@@ -147,8 +150,8 @@ class DiscountService {
             totalOrder = products.reduce((acc, product) => {
                 return acc + (product.quantity * product.price)
             }, 0)
-
-            if(discount_min_order_value < totalOrder) {
+            console.log(discount_min_order_value, totalOrder);
+            if(discount_min_order_value > totalOrder) {
                 throw new BadRequestError(`Discount require a minimum order value of ${discount_min_order_value}`)
             }
         }
@@ -171,7 +174,7 @@ class DiscountService {
     }
 
     static async deleteDiscount({shopId, codeId}) {
-        return await discountModel.findOneAndDelete({
+        return await discountModel.deleteOne({
             _id: converObjectMongoId(codeId),
             disocunt_shopId: converObjectMongoId(shopId)
         })

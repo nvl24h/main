@@ -8,7 +8,7 @@ const COLLECTION_NAME = 'discounts'
 const discountSchema = new Schema({
     disocunt_name: {type: String, required: true}, // Ten discount 
     discount_description: String, // Mo ta
-    disocunt_type: {type: String, required: true, enum: ['fixed_amount', 'percentager'], default: 'fixed_amount'}, // loai
+    disocunt_type: {type: String, required: true, enum: ['fixed_amount', 'percenter'], default: 'fixed_amount'}, // loai
     discount_code: {type: String, required: true}, // code
     discount_value: {type: Number, required: true}, // 10k hay 10%
     discount_max_value: {type: Number, required: true}, // giam gia cao nhat
