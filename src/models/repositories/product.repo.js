@@ -113,6 +113,11 @@ const getDiscountProduct = async ({filter, limit = 50, sort = 'ctime', page, sel
         .exec()
 }
 
+// Cart
+const getProductById = async (productId) => {
+    return await product.findOne({_id: converObjectMongoId(productId)})
+}
+
 module.exports = {
     findAllDraftProduct,
     findAllPublictProduct,
@@ -122,5 +127,6 @@ module.exports = {
     findAllProductUser,
     findProductUser,
     findUpdateProduct,
-    getDiscountProduct
+    getDiscountProduct,
+    getProductById
 }
