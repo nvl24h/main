@@ -8,10 +8,8 @@ const router = express.Router()
 
 router.post('', asyncHandler(CartController.addToCart))
 router.post('/update', asyncHandler(CartController.update))
-
-// Check Authorization
-router.use(asyncHandler(checkAuthorization))
-///////////////////
+router.get('', asyncHandler(CartController.listToCart))
+router.delete('', asyncHandler(CartController.deleteItemCart))
 
 
 module.exports = router

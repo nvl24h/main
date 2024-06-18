@@ -33,7 +33,7 @@ class CartService {
         
         const foundItemCart = await userCartItem({userId, productId: product?.productId, model: cartModel})
         if(!foundItemCart) {
-            console.log(11111111);
+
             return await userCart.updateOne({
                 $addToSet: {
                     cart_products : product
