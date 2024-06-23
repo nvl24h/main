@@ -2,6 +2,7 @@
 
 const { BadRequestError } = require("../core/error.reponse")
 const cartModel = require("../models/cart.model")
+const orderModel = require("../models/order.model")
 const { findByCartID } = require("../models/repositories/cart.repo")
 const { checkProductByserver } = require("../models/repositories/product.repo")
 const { getDiscountAmount } = require("./discount.service")
@@ -120,11 +121,42 @@ class CHeckoutService {
         // check lai 1 lan nua xem vuot kho hay khong
         const products = shop_order_ids_new.flatMap(order => order.item_products)
         console.log(`[1] `, products)
-
-        for (let i = 0; i < products.length; i++) {
-            const {productId, quantity} = products[i]
+        // Check ton kho
+        // for (let i = 0; i < products.length; i++) {
+        //     const {productId, quantity} = products[i]
             
+        // }
+
+        const newOrder = await orderModel.create({
+            order_userId: userId,
+            order_checkout: checkout_order,
+            order_shipping: user_adress,
+            order_payment: user_payment,
+            order_products: shop_order_ids_new
+        })
+
+        // Truowng hop order thanh cong remove san pham co trong gio hang
+        if(newOrder) {
+            // remove product in my cart
         }
+
+        return newOrder
+    }
+
+    static async getOrderByUser() {
+
+    }
+
+    static async getOneOrderByUser() {
+
+    }
+
+    static async cancelOrderByUser() {
+
+    }
+
+    static async updateOrderStatusByShop() {
+
     }
 }
 
