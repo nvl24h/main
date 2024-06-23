@@ -1,5 +1,7 @@
 'use strict'
 
+const { converObjectMongoId } = require("../../utils")
+
 const createCart = async ({userId, product, model}) => {
     const query = {cart_user_id: userId, cart_state: 'active'}
     const updateOrderInsert = {
@@ -33,7 +35,7 @@ const updateQuantity = async ({userId, product, model}) => {
 }
 
 const findByCartID = async ({cartId, model}) => {
-    return await model.findOne({_id: converObjectId(cartId), cart_state: 'active'})
+    return await model.findOne({_id: converObjectMongoId(cartId), cart_state: 'active'}).lean()
 }
 
 const userCartItem = async ({userId, productId, model}) => {
