@@ -140,7 +140,7 @@ class CHeckoutService {
             // remove product in my cart
         }
 
-        return newOrder
+        return newOrdergit 
     }
 
     static async getOrderByUser() {
