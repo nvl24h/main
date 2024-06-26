@@ -1,3 +1,5 @@
 Authorization 
 Access
 updateProduct
+Upload image
+upload log
