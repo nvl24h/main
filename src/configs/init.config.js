@@ -9,6 +9,9 @@ const dev = {
         host: process.env.DEV_DB_HOST || 'localhost',
         port: process.env.DEV_DB_PORT || 27017,
         name: process.env.DEV_DB_NAME || 'courson1'
+    },
+    cloudinary: {
+        secret: process.env.DEV_CLOUDINARY_API_SECRET || null
     }
 }
 
@@ -21,6 +24,9 @@ const pro = {
         host: process.env.PRO_DB_HOST || 'localhost',
         port: process.env.PRO_DB_PORT || 27017,
         name: process.env.PRO_DB_NAME || 'courson2'
+    },
+    cloudinary: {
+        secret: process.env.PRO_CLOUDINARY_API_SECRET || null
     }
 }
 

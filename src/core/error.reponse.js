@@ -1,11 +1,19 @@
 'use strict'
 
 const {ReasonPhrases, StatusCodes} = require('./httpStatusCode')
+const MyLogger = require('../loggers/myLogger.log')
 
 class errorReponse extends Error {
     constructor(message, status) {
         super(message)
         this.status = status
+
+        MyLogger.error(this.message, {
+            context: '/path',
+            requestId: 'UUUAAA',
+            message: this.message,
+            metadata: {}
+        })
     }
 }
 

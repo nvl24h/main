@@ -15,11 +15,11 @@ class MyLogger {
                 formatPrintf
             ),
             transports: [
-                new winston.transports.Console(),
-                new winston.transports.DailyRotateFile({
+                new transports.Console(),
+                new transports.DailyRotateFile({
                     level: 'info',
                     dirname: 'src/logs',
-                    filename: 'application-%DATE%.log',
+                    filename: 'application-%DATE%.info.log',
                     datePattern: 'YYYY-MM-DD-HH-mm',
                     zippedArchive: false, // true backup lai truo khi xoa 
                     maxSize: '20m', // dung luong file
@@ -29,10 +29,10 @@ class MyLogger {
                         formatPrintf
                     )
                 }),
-                new winston.transports.DailyRotateFile({
+                new transports.DailyRotateFile({
                     level: 'error',
                     dirname: 'src/logs',
-                    filename: 'application-%DATE%.log',
+                    filename: 'application-%DATE%.error.log',
                     datePattern: 'YYYY-MM-DD-HH-mm',
                     zippedArchive: false, // true backup lai truo khi xoa 
                     maxSize: '20m', // dung luong file

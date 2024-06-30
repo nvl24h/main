@@ -2,9 +2,9 @@
 
 const multer = require('multer')
 
-const uploadMemory = multer({
-    storage: multer.memoryStorage()
-})
+// const uploadMemory = multer({
+//     storage: multer.memoryStorage()
+// })
 
 const uploadDisk = multer({
     storage: multer.diskStorage({
@@ -20,5 +20,5 @@ const uploadDisk = multer({
 
 module.exports = {
     uploadDisk,
-    uploadMemory
+    // uploadMemory
 }
