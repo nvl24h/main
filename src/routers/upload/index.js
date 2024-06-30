@@ -13,5 +13,6 @@ router.use(asyncHandler(checkAuthorization))
 
 router.post('/product', asyncHandler(UploadController.uploadFile))
 router.post('/product/thumb', uploadDisk.single('file'), asyncHandler(UploadController.uploadFileThumb))
+router.post('/product/multiple', uploadDisk.array('files', 3), asyncHandler(UploadController.uploadFromImageFile))
 
 module.exports = router

@@ -16,24 +16,64 @@ const uploadFromImageUrl = async () => {
 
 // 2. upload from image local
 const uploadFromImageLocal = async ({path, folderName = 'product/9409'}) => {
-
-    const result = await cloudinary.uploader.upload(path, {
-        public_id: 'thumb',
-        folder: folderName,
-    })
-
-    return {
-        image_url: result.secure_url,
-        shopId: 9409,
-        thumb_url: await cloudinary.url(result.public_id, {
-            height: 100,
-            width: 100,
-            format: 'jpg'
+    try {
+        const result = await cloudinary.uploader.upload(path, {
+            public_id: 'thumb',
+            folder: folderName,
         })
+    
+        return {
+            image_url: result.secure_url,
+            shopId: 9409,
+            thumb_url: await cloudinary.url(result.public_id, {
+                height: 100,
+                width: 100,
+                format: 'jpg'
+            })
+        }
+    } catch (error) {
+        console.error('Error uploading image', error);
     }
 }
 
+// 2. uploading nhieeuf anh
+const uploadFromImageFile = async ({files, folderName = 'product/9409'}) => {
+    try {
+        if(!files.length) {
+            return
+        }
+
+        const uploadUrl = []
+
+        for(const file of files) {
+            const result = await cloudinary.uploader.upload(file.path, {
+                folder: folderName,
+            })
+
+            uploadUrl.push(
+                {
+                    image_url: result.secure_url,
+                    shopId: 9409,
+                    thumb_url: await cloudinary.url(result.public_id, {
+                        height: 100,
+                        width: 100,
+                        format: 'jpg'
+                    })
+                }
+            )
+        }
+    
+        return uploadUrl
+        
+    } catch (error) {
+        console.error('Error uploading image', error);
+    }
+}
+
+
+
 module.exports = {
     uploadFromImageUrl,
-    uploadFromImageLocal
+    uploadFromImageLocal,
+    uploadFromImageFile
 }
